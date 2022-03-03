@@ -1,0 +1,70 @@
+$primary-color: #eeebdd;
+$secondary-color: #ce1212;
+$third-color: #810000;
+$fourth-color: #1b1717;
+
+$primary-font: 'Cairo', sans-serif;
+$secondary-font: 'Jura', sans-serif;
+
+.header-container {
+  margin: 2.4rem 0 1rem 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-family: $primary-font;
+  line-height: 1.1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.comparison-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bike-container {
+  display: flex;
+  align-items: center;
+  background-color: grey;
+  height: 10.4375rem; /* 167px */
+  width: 10rem; /* 160px */
+  padding: 0 16px;
+  border: 0.2px solid black;
+  margin: 0 1rem;
+}
+
+.bike-container:hover {
+  cursor: pointer;
+}
+
+.bike-container p {
+  font-size: 1.225rem;
+  font-family: $secondary-font;
+  color: white;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.8);
+  height: 1000px;
+  width: 1000px;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 98;
+}
+
+@media only screen and (max-width: 550px) {
+  .bike-container {
+    height: 9.6rem; /* 153.6px */
+    width: 9.4rem; /* 150.4px */
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .bike-container {
+    height: 9rem; /* 153.6px */
+    width: 8.5rem; /* 150.4px */
+    margin: 0 5px;
+  }
+}

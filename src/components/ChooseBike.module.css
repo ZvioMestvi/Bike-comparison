@@ -1,0 +1,172 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #eeebdd;
+  border-radius: 2px;
+  position: fixed;
+  left: 8%;
+  top: 20%;
+  height: 430px;
+  width: 84%;
+  z-index: 99;
+}
+
+.imagesContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 80%;
+  margin-top: 25px;
+  /* border: 0.5px solid grey; */
+}
+
+.imagesContainer p {
+  font-size: 1.6rem;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  position: absolute;
+  margin: 0 85px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.images {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  position: relative;
+}
+
+.selectedBike {
+  display: flex;
+  align-items: center;
+  padding-left: 4px;
+  font-size: 0.925rem;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
+  height: 26px;
+  width: 256px;
+  text-transform: capitalize;
+  background-color: white;
+  border: 1px solid rgb(118, 118, 118);
+  position: relative;
+  margin-top: 6px;
+}
+
+.form button {
+  height: 27px;
+  width: 262px;
+  font-size: 0.925rem;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
+}
+
+.brandList {
+  height: 98px;
+  width: 260px;
+  position: absolute;
+  top: 33px;
+  z-index: 101;
+  background-color: #ffffff;
+  border: 0.1px solid rgb(118, 118, 118);
+}
+
+.modelList {
+  height: 98px;
+  width: 260px;
+  position: absolute;
+  top: 66px;
+  z-index: 101;
+  background-color: #ffffff;
+  border: 0.1px solid rgb(118, 118, 118);
+}
+
+.brandList input,
+.modelList input {
+  border: 0;
+  outline: 0;
+  padding-left: 6px;
+  margin-top: 4px;
+  font-size: 0.925rem;
+  font-family: 'Jura', sans-serif;
+  font-weight: 600;
+  width: 252px;
+}
+
+.modelList ul,
+.brandList ul {
+  margin: 4px 0 0 0;
+}
+
+.brandList li,
+.modelList li {
+  display: flex;
+  align-items: center;
+  font-size: 0.925rem;
+  font-family: 'Jura', sans-serif;
+  font-weight: 600;
+  list-style-type: none;
+  position: relative;
+  padding-left: 6px;
+  margin-top: 2px;
+  right: 40px;
+  height: 21px;
+  width: 254px;
+}
+
+.brandList li p,
+.modelList li p {
+  text-transform: capitalize;
+  margin: 0;
+  color: #1b1717;
+}
+
+.brandList li:hover,
+.modelList li:hover,
+.form button:hover {
+  background-color: #eeebdd;
+  cursor: pointer;
+}
+
+.btnsContainer {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 25px;
+  width: 256px;
+}
+
+.btnsContainer button {
+  height: 42px;
+  width: 122px;
+  border: 0.4px solid black;
+  font-size: 1rem;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  background-color: transparent;
+}
+
+.btnsContainer button:hover,
+.selectedBike:hover {
+  cursor: pointer;
+}
+
+#selectBtn {
+  background-color: #ce1212;
+  color: white;
+  border: 0;
+}

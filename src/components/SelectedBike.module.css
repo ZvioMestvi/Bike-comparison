@@ -1,0 +1,80 @@
+.mainContainer {
+  margin: 0 1rem;
+}
+
+.imagesContainer {
+  border-bottom: 3px solid black;
+  height: 10.4375rem; /* 167px */
+  width: 12.5rem; /* 160px */
+  position: relative;
+}
+
+#closeBtn {
+  height: 28px;
+  width: 28px;
+  filter: invert(1);
+  position: absolute;
+  right: 0px;
+}
+
+#closeBtn:hover {
+  cursor: pointer;
+}
+
+.imagesContainer div::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border: 24px solid transparent;
+  border-top-color: #ce1212;
+  border-right-color: #ce1212;
+  position: absolute;
+  right: 0;
+}
+
+.imagesContainer img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.infoContainer h4 {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
+  background-color: #ce1212;
+  height: 36px;
+  margin: 0;
+  padding-left: 5px;
+  color: white;
+}
+
+.infoContainer p {
+  display: flex;
+  align-items: center;
+  font-size: 1.05rem;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
+  background-color: #eeebdd;
+  height: 36px;
+  margin: 1px 0 0 0;
+  padding-left: 5px;
+  text-transform: capitalize;
+}
+
+@media only screen and (max-width: 550px) {
+  .imagesContainer {
+    height: 9.6rem; /* 153.6px */
+    width: 10.5rem; /* 150.4px */
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .imagesContainer {
+    height: 9.2rem; /* 153.6px */
+    width: 9.6rem; /* 150.4px */
+  }
+}
