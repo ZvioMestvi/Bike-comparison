@@ -46,12 +46,13 @@ h1 {
 
 .overlay {
   background: rgba(0, 0, 0, 0.8);
-  height: 1000px;
-  width: 1000px;
+  height: 10000px;
+  width: 10000px;
   top: 0;
   left: 0;
   position: fixed;
   z-index: 98;
+  overflow: hidden;
 }
 
 @media only screen and (max-width: 550px) {
