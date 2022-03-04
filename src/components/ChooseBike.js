@@ -25,7 +25,13 @@ const ChooseBike = props => {
   };
 
   const select = (value, key) => {
-    if (value === 'brand') setSelectedBrand(key.toLowerCase());
+    if (value === 'brand' && selectedBrand !== undefined) {
+      setSelectedBrand(key.toLowerCase());
+      setSelectedModel(undefined);
+    } else if (value === 'brand' && selectedBrand === undefined) {
+      setSelectedBrand(key.toLowerCase());
+    }
+
     if (value === 'model') setSelectedModel(key);
     setBrandListVis(false);
     setModelListVis(false);
@@ -90,8 +96,23 @@ const ChooseBike = props => {
     <Fragment>
       <div className={classes.mainContainer}>
         <div className={classes.imagesContainer}>
-          <div className={classes.images} />
-          <p>Select bike to compare</p>
+          <div className={classes.images}>
+            {selectedBrand !== undefined && !selectedModel ? (
+              <img src={store.logos[selectedBrand]} alt="brand logo" />
+            ) : (
+              ''
+            )}
+
+            {selectedModel !== undefined ? (
+              <img
+                src={store.bikes[selectedBrand][selectedModel]?.thumbnail}
+                alt="bike model"
+              />
+            ) : (
+              ''
+            )}
+          </div>
+          {selectedBrand === undefined ? <p>Select bike to compare</p> : ''}
         </div>
         <div>
           <form className={classes.form} ref={brandListEl} autoComplete="off">

@@ -26,7 +26,7 @@ const App = () => {
 
   useEffect(() => {
     fetch(
-      'https://bike-comparison-8bd3b-default-rtdb.europe-west1.firebasedatabase.app/bikes.json'
+      'https://bike-comparison-8bd3b-default-rtdb.europe-west1.firebasedatabase.app/data.json'
     )
       .then(response => response.json())
       .then(responseData => {

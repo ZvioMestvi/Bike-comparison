@@ -2,6 +2,7 @@ import { createStore } from 'redux';
 
 const initialState = {
   bikes: [],
+  logos: [],
   firstBike: {},
   secondBike: {},
 };
@@ -11,7 +12,8 @@ const rootReducer = (state = initialState, action) => {
     case 'SET_DATA':
       return {
         ...state,
-        bikes: action.payload,
+        bikes: action.payload.bikes,
+        logos: action.payload.logos,
       };
     case 'FIRST_BIKE':
       return {
