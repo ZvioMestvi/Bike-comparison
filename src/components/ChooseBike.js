@@ -5,12 +5,14 @@ import classes from './ChooseBike.module.css';
 
 const ChooseBike = props => {
   const brandListEl = useRef();
-  const store = useSelector(store => store);
   const dispatch = useDispatch();
+  const store = useSelector(store => store);
   const [brandListVis, setBrandListVis] = useState(false);
   const [modelListVis, setModelListVis] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState();
   const [selectedModel, setSelectedModel] = useState();
+  const [searchInput, setSearchInput] = useState('');
+  const [optionsNotSelected, setOptionsNotSelected] = useState(false);
 
   const openBrandList = () => {
     setBrandListVis(true);
@@ -24,17 +26,18 @@ const ChooseBike = props => {
 
   const select = (value, key) => {
     if (value === 'brand') setSelectedBrand(key.toLowerCase());
-    if (value === 'model') setSelectedModel(key.toLowerCase());
+    if (value === 'model') setSelectedModel(key);
     setBrandListVis(false);
     setModelListVis(false);
   };
 
   const selectBike = () => {
-    if ((selectedBrand || selectedModel) === '') return;
+    if (selectedBrand === undefined) setOptionsNotSelected(true);
+    if (selectedModel === undefined) setOptionsNotSelected(true);
 
     const selectedBike = {
       brand: selectedBrand,
-      model: store.bikes[selectedBrand][selectedModel].model,
+      model: selectedModel,
       engine: store.bikes[selectedBrand][selectedModel].engine,
       horsepower: store.bikes[selectedBrand][selectedModel].horsepower,
       price: store.bikes[selectedBrand][selectedModel].price,
@@ -107,8 +110,21 @@ const ChooseBike = props => {
                   id="brand"
                   name="brand"
                   placeholder="Search"
+                  onChange={e => {
+                    setSearchInput(e.target.value);
+                  }}
                 />
-                <ul>{bikeBrands}</ul>
+                <ul>
+                  {bikeBrands.filter(brand => {
+                    if (searchInput === '') return brand;
+                    if (
+                      brand.key
+                        .toLowerCase()
+                        .includes(searchInput.toLowerCase())
+                    )
+                      return brand;
+                  })}
+                </ul>
               </div>
             )}
 
@@ -121,18 +137,45 @@ const ChooseBike = props => {
             </button>
             {modelListVis && (
               <div className={classes.modelList}>
-                <label />
-                <input
-                  type="text"
-                  id="model"
-                  name="model"
-                  placeholder="Search"
-                />
-                <ul>{bikeModels}</ul>
+                {selectedBrand === undefined ? (
+                  <p className={classes.noBrandErrorText}>
+                    Choose brand first...
+                  </p>
+                ) : (
+                  <Fragment>
+                    <label />
+                    <input
+                      type="text"
+                      id="model"
+                      name="model"
+                      placeholder="Search"
+                      onChange={e => {
+                        setSearchInput(e.target.value);
+                      }}
+                    />
+                    <ul>
+                      {bikeModels.filter(model => {
+                        if (searchInput === '') return model;
+                        if (
+                          model.key
+                            .toLowerCase()
+                            .includes(searchInput.toLowerCase())
+                        )
+                          return model;
+                      })}
+                    </ul>
+                  </Fragment>
+                )}
               </div>
             )}
           </form>
         </div>
+
+        {optionsNotSelected && (
+          <p className={classes.noBikeModelErrorText}>
+            Please select all options!
+          </p>
+        )}
 
         <div className={classes.btnsContainer}>
           <button onClick={props.vis.bind(null, false)}>Cancel</button>

@@ -1,4 +1,5 @@
-$primary-color: #eeebdd;
+$primary-color: #f4f3ef;
+$primary-color-alt: #eeebdd;
 $secondary-color: #ce1212;
 $third-color: #810000;
 $fourth-color: #1b1717;
@@ -21,6 +22,7 @@ h1 {
 .comparison-container {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.4rem;
 }
 
 .bike-container {
@@ -51,8 +53,6 @@ h1 {
   top: 0;
   left: 0;
   position: fixed;
-  z-index: 98;
-  overflow: hidden;
 }
 
 @media only screen and (max-width: 550px) {
