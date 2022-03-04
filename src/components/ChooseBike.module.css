@@ -17,9 +17,9 @@
   justify-content: center;
   align-items: center;
   height: 200px;
-  width: 80%;
-  margin-top: 25px;
-  /* border: 0.5px solid grey; */
+  width: 260px;
+  margin-top: 35px;
+  border: 0.5px solid grey;
 }
 
 .imagesContainer p {
@@ -31,6 +31,7 @@
   margin: 0 85px;
   line-height: 1.2;
   text-align: center;
+  width: 150px;
 }
 
 .images {
@@ -185,4 +186,28 @@
   background-color: #ce1212;
   color: white;
   border: 0;
+}
+
+@media only screen and (max-width: 550px) {
+  .mainContainer {
+    left: 12.5%;
+    width: 75%;
+  }
+
+  .imagesContainer {
+    margin-top: 45px;
+    height: 9.6rem; /* 153.6px */
+    width: 260px;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .imagesContainer {
+    margin-top: 40px;
+  }
+
+  .mainContainer {
+    left: 10%;
+    width: 80%;
+  }
 }
