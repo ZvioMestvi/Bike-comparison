@@ -64,7 +64,6 @@ const App = () => {
 
   return (
     <Fragment>
-      <h1>what</h1>
       {selectFirstBikeModal && (
         <ChooseBike whichBike="1" vis={setSelectFirstBikeModal} />
       )}
