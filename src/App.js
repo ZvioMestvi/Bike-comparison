@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setData } from './store/actions';
+import { setData, setFirstBike, setSecondBike } from './store/actions';
 import './App.scss';
 import ChooseBike from './components/ChooseBike';
 import SelectedBike from './components/SelectedBike';
@@ -24,7 +24,27 @@ const App = () => {
     setSelectSecondBikeModal(false);
   };
 
+  const firstBikeStorageShortcut = Object.keys(
+    JSON.parse(localStorage.getItem('firstSelectedBike'))
+  );
+
+  const secondBikeStorageShortcut = Object.keys(
+    JSON.parse(localStorage.getItem('secondSelectedBike'))
+  );
+
   useEffect(() => {
+    if (firstBikeStorageShortcut.length !== 0) {
+      dispatch(
+        setFirstBike(JSON.parse(localStorage.getItem('firstSelectedBike')))
+      );
+    }
+
+    if (secondBikeStorageShortcut.length !== 0) {
+      dispatch(
+        setSecondBike(JSON.parse(localStorage.getItem('secondSelectedBike')))
+      );
+    }
+
     fetch(
       'https://bike-comparison-8bd3b-default-rtdb.europe-west1.firebasedatabase.app/data.json'
     )
@@ -33,6 +53,14 @@ const App = () => {
         dispatch(setData(responseData));
       });
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('firstSelectedBike', JSON.stringify(store.firstBike));
+    localStorage.setItem(
+      'secondSelectedBike',
+      JSON.stringify(store.secondBike)
+    );
+  }, [store.firstBike, store.secondBike]);
 
   return (
     <Fragment>
