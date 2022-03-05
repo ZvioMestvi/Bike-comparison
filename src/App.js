@@ -24,15 +24,15 @@ const App = () => {
     setSelectSecondBikeModal(false);
   };
 
-  const firstBikeStorageShortcut = Object.keys(
-    JSON.parse(localStorage.getItem('firstSelectedBike'))
-  );
-
-  const secondBikeStorageShortcut = Object.keys(
-    JSON.parse(localStorage.getItem('secondSelectedBike'))
-  );
-
   useEffect(() => {
+    const firstBikeStorageShortcut = Object.keys(
+      JSON.parse(localStorage.getItem('firstSelectedBike'))
+    );
+
+    const secondBikeStorageShortcut = Object.keys(
+      JSON.parse(localStorage.getItem('secondSelectedBike'))
+    );
+
     if (firstBikeStorageShortcut.length !== 0) {
       dispatch(
         setFirstBike(JSON.parse(localStorage.getItem('firstSelectedBike')))
