@@ -6,22 +6,22 @@ import ChooseBike from './components/ChooseBike';
 import SelectedBike from './components/SelectedBike';
 
 const App = () => {
-  const store = useSelector(store => store);
   const dispatch = useDispatch();
-  const [selectFirstBikeModal, setSelectFirstBikeModal] = useState(false);
-  const [selectSecondBikeModal, setSelectSecondBikeModal] = useState(false);
+  const store = useSelector(store => store);
+  const [firstBikeModalVis, setFirstBikeModalVis] = useState(false);
+  const [secondBikeModalVis, setSecondBikeModalVis] = useState(false);
 
   const showFirstBikeModal = () => {
-    setSelectFirstBikeModal(true);
+    setFirstBikeModalVis(true);
   };
 
   const showSecondBikeModal = () => {
-    setSelectSecondBikeModal(true);
+    setSecondBikeModalVis(true);
   };
 
   const closeModal = () => {
-    setSelectFirstBikeModal(false);
-    setSelectSecondBikeModal(false);
+    setFirstBikeModalVis(false);
+    setSecondBikeModalVis(false);
   };
 
   const firstBikeStorageShortcut = Object.keys(
@@ -33,6 +33,7 @@ const App = () => {
   );
 
   useEffect(() => {
+    // Get items from local storage when website loads.
     if (firstBikeStorageShortcut.length !== 0) {
       dispatch(
         setFirstBike(JSON.parse(localStorage.getItem('firstSelectedBike')))
@@ -45,16 +46,17 @@ const App = () => {
       );
     }
 
-    fetch(
-      'https://bike-comparison-8bd3b-default-rtdb.europe-west1.firebasedatabase.app/data.json'
-    )
-      .then(response => response.json())
-      .then(responseData => {
-        dispatch(setData(responseData));
-      });
+    const getData = (async () => {
+      const response = await fetch(
+        'https://bike-comparison-8bd3b-default-rtdb.europe-west1.firebasedatabase.app/data.json'
+      );
+      const data = await response.json();
+      dispatch(setData(data));
+    })();
   }, []);
 
   useEffect(() => {
+    // Set items to local storage when chosen bike changes.
     localStorage.setItem('firstSelectedBike', JSON.stringify(store.firstBike));
     localStorage.setItem(
       'secondSelectedBike',
@@ -64,18 +66,20 @@ const App = () => {
 
   return (
     <Fragment>
-      {selectFirstBikeModal && (
-        <ChooseBike whichBike="1" vis={setSelectFirstBikeModal} />
+      {firstBikeModalVis && (
+        <ChooseBike bikeSlot="1" modalVis={setFirstBikeModalVis} />
       )}
-      {selectSecondBikeModal && (
-        <ChooseBike whichBike="2" vis={setSelectSecondBikeModal} />
+      {secondBikeModalVis && (
+        <ChooseBike bikeSlot="2" modalVis={setSecondBikeModalVis} />
       )}
 
       <div className="header-container">
-        <h1>
-          Bikes <br />
-          Comparison
-        </h1>
+        <h1>Bikes Comparison</h1>
+        <p>
+          This is a simple website where you can compare two motorbike's stats.
+          <br />
+          Made by Zvio Mestvi for portfolio.
+        </p>
       </div>
 
       <div className="comparison-container">
@@ -84,7 +88,7 @@ const App = () => {
             <p>Choose bike to compare +</p>
           </div>
         ) : (
-          <SelectedBike bikeData={store.firstBike} whichBike="1" />
+          <SelectedBike bikeData={store.firstBike} bikeSlot="1" />
         )}
 
         {Object.keys(store.secondBike).length === 0 ? (
@@ -92,11 +96,11 @@ const App = () => {
             <p>Choose bike to compare +</p>
           </div>
         ) : (
-          <SelectedBike bikeData={store.secondBike} whichBike="2" />
+          <SelectedBike bikeData={store.secondBike} bikeSlot="2" />
         )}
       </div>
 
-      {(selectFirstBikeModal || selectSecondBikeModal) && (
+      {(firstBikeModalVis || secondBikeModalVis) && (
         <div className="overlay" onClick={closeModal} />
       )}
     </Fragment>

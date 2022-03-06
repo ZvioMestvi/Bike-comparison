@@ -1,45 +1,52 @@
 import { Fragment, useState, useRef, useEffect } from 'react';
 import { setFirstBike, setSecondBike } from '../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import classes from './ChooseBike.module.css';
+import classes from './ChooseBike.module.scss';
 
 const ChooseBike = props => {
   const brandListEl = useRef();
   const dispatch = useDispatch();
   const store = useSelector(store => store);
-  const [brandListVis, setBrandListVis] = useState(false);
-  const [modelListVis, setModelListVis] = useState(false);
+  const [brandOptionsVis, setBrandOptionsVis] = useState(false);
+  const [modelOptionsVis, setModelOptionsVis] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState();
   const [selectedModel, setSelectedModel] = useState();
-  const [searchInput, setSearchInput] = useState('');
+  const [brandSearchInput, setBrandSearchInput] = useState('');
+  const [modelSearchInput, setModelSearchInput] = useState('');
   const [optionsNotSelected, setOptionsNotSelected] = useState(false);
 
   const openBrandList = () => {
-    setBrandListVis(true);
-    setModelListVis(false);
+    setBrandOptionsVis(true);
+    setModelOptionsVis(false);
   };
 
   const openModelList = () => {
-    setModelListVis(true);
-    setBrandListVis(false);
+    setModelOptionsVis(true);
+    setBrandOptionsVis(false);
   };
 
-  const select = (value, key) => {
-    if (value === 'brand' && selectedBrand !== undefined) {
+  const selectOption = (optionsType, key) => {
+    if (optionsType === 'brand' && selectedBrand !== undefined) {
       setSelectedBrand(key.toLowerCase());
       setSelectedModel(undefined);
-    } else if (value === 'brand' && selectedBrand === undefined) {
+    } else if (optionsType === 'brand' && selectedBrand === undefined) {
       setSelectedBrand(key.toLowerCase());
     }
 
-    if (value === 'model') setSelectedModel(key);
-    setBrandListVis(false);
-    setModelListVis(false);
+    if (optionsType === 'model') setSelectedModel(key);
+    setBrandOptionsVis(false);
+    setModelOptionsVis(false);
+
+    setBrandSearchInput('');
+    setModelSearchInput('');
   };
 
   const selectBike = () => {
-    if (selectedBrand === undefined) setOptionsNotSelected(true);
-    if (selectedModel === undefined) setOptionsNotSelected(true);
+    // This prevents error when user selects bike in modal without choosing brand or/and modal.
+    if (selectedBrand === undefined || selectedModel === undefined) {
+      setOptionsNotSelected(true);
+      return;
+    }
 
     const selectedBike = {
       brand: selectedBrand,
@@ -53,9 +60,9 @@ const ChooseBike = props => {
       weight: store.bikes[selectedBrand][selectedModel].weight,
     };
 
-    if (props.whichBike === '1') dispatch(setFirstBike(selectedBike));
-    if (props.whichBike === '2') dispatch(setSecondBike(selectedBike));
-    props.vis(false);
+    if (props.bikeSlot === '1') dispatch(setFirstBike(selectedBike));
+    if (props.bikeSlot === '2') dispatch(setSecondBike(selectedBike));
+    props.modalVis(false);
   };
 
   const bikeBrands = [];
@@ -63,7 +70,7 @@ const ChooseBike = props => {
   const getBrands = (() => {
     for (const key in store.bikes) {
       bikeBrands.push(
-        <li key={key} onClick={select.bind(null, 'brand', key)}>
+        <li key={key} onClick={selectOption.bind(null, 'brand', key)}>
           <p>{key}</p>
         </li>
       );
@@ -71,7 +78,7 @@ const ChooseBike = props => {
 
     for (const key in store.bikes[selectedBrand]) {
       bikeModels.push(
-        <li key={key} onClick={select.bind(null, 'model', key)}>
+        <li key={key} onClick={selectOption.bind(null, 'model', key)}>
           <p>{key}</p>
         </li>
       );
@@ -79,16 +86,19 @@ const ChooseBike = props => {
   })();
 
   useEffect(() => {
-    const handler = event => {
+    // This is needed to close dropdown list (options menu) of brands and models, when clicked outside of it.
+    const closeOptionsMenu = event => {
       if (!brandListEl.current.contains(event.target)) {
-        setBrandListVis(false);
-        setModelListVis(false);
+        setBrandOptionsVis(false);
+        setModelOptionsVis(false);
+        setBrandSearchInput('');
+        setModelSearchInput('');
       }
     };
-    document.addEventListener('mousedown', handler);
+    document.addEventListener('mousedown', closeOptionsMenu);
 
     return () => {
-      document.removeEventListener('mousedown', handler);
+      document.removeEventListener('mousedown', closeOptionsMenu);
     };
   }, []);
 
@@ -115,7 +125,12 @@ const ChooseBike = props => {
           {selectedBrand === undefined ? <p>Select bike to compare</p> : ''}
         </div>
         <div>
-          <form className={classes.form} ref={brandListEl} autoComplete="off">
+          <form
+            className={classes.form}
+            ref={brandListEl}
+            onSubmit={e => e.preventDefault()}
+            autoComplete="off"
+          >
             <button
               type="button"
               className={classes.selectedBike}
@@ -123,7 +138,7 @@ const ChooseBike = props => {
             >
               {selectedBrand ? selectedBrand : 'Select brand...'}
             </button>
-            {brandListVis && (
+            {brandOptionsVis && (
               <div className={classes.brandList}>
                 <label />
                 <input
@@ -132,18 +147,19 @@ const ChooseBike = props => {
                   name="brand"
                   placeholder="Search"
                   onChange={e => {
-                    setSearchInput(e.target.value);
+                    setBrandSearchInput(e.target.value);
                   }}
                 />
                 <ul>
                   {bikeBrands.filter(brand => {
-                    if (searchInput === '') return brand;
+                    if (brandSearchInput === '') return brand;
                     if (
                       brand.key
                         .toLowerCase()
-                        .includes(searchInput.toLowerCase())
-                    )
+                        .includes(brandSearchInput.toLowerCase())
+                    ) {
                       return brand;
+                    }
                   })}
                 </ul>
               </div>
@@ -156,7 +172,7 @@ const ChooseBike = props => {
             >
               {selectedModel ? selectedModel : 'Select model...'}
             </button>
-            {modelListVis && (
+            {modelOptionsVis && (
               <div className={classes.modelList}>
                 {selectedBrand === undefined ? (
                   <p className={classes.noBrandErrorText}>
@@ -171,18 +187,19 @@ const ChooseBike = props => {
                       name="model"
                       placeholder="Search"
                       onChange={e => {
-                        setSearchInput(e.target.value);
+                        setModelSearchInput(e.target.value);
                       }}
                     />
                     <ul>
                       {bikeModels.filter(model => {
-                        if (searchInput === '') return model;
+                        if (modelSearchInput === '') return model;
                         if (
                           model.key
                             .toLowerCase()
-                            .includes(searchInput.toLowerCase())
-                        )
+                            .includes(modelSearchInput.toLowerCase())
+                        ) {
                           return model;
+                        }
                       })}
                     </ul>
                   </Fragment>
@@ -199,7 +216,7 @@ const ChooseBike = props => {
         )}
 
         <div className={classes.btnsContainer}>
-          <button onClick={props.vis.bind(null, false)}>Cancel</button>
+          <button onClick={props.modalVis.bind(null, false)}>Cancel</button>
           <button onClick={selectBike} id={classes.selectBtn}>
             Select
           </button>

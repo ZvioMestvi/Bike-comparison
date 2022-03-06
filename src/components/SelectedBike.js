@@ -1,6 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setFirstBike, setSecondBike } from '../store/actions';
-import classes from './SelectedBike.module.css';
+import classes from './SelectedBike.module.scss';
 import xIcon from '../assets/x-icon.svg';
 
 const SelectedBike = props => {
@@ -8,8 +8,8 @@ const SelectedBike = props => {
   const selectedBike = props.bikeData;
 
   const clearSelectedBike = () => {
-    if (props.whichBike === '1') dispatch(setFirstBike({}));
-    if (props.whichBike === '2') dispatch(setSecondBike({}));
+    if (props.bikeSlot === '1') dispatch(setFirstBike({}));
+    if (props.bikeSlot === '2') dispatch(setSecondBike({}));
   };
 
   return (

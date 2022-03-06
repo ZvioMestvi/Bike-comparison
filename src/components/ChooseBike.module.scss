@@ -1,8 +1,16 @@
+$primary-color: #f4f3ef;
+$primary-color-alt: #eeebdd;
+$secondary-color: #ce1212;
+$fourth-color: #1b1717;
+
+$primary-font: 'Cairo', sans-serif;
+$secondary-font: 'Jura', sans-serif;
+
 .mainContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f4f3ef;
+  background-color: $primary-color;
   border-radius: 2px;
   position: fixed;
   left: 25%;
@@ -24,7 +32,7 @@
 
 .imagesContainer p {
   font-size: 1.6rem;
-  font-family: 'Cairo', sans-serif;
+  font-family: $primary-font;
   font-weight: 600;
   text-transform: uppercase;
   position: absolute;
@@ -60,7 +68,7 @@
   align-items: center;
   padding-left: 4px;
   font-size: 0.925rem;
-  font-family: 'Jura', sans-serif;
+  font-family: $secondary-font;
   font-weight: 700;
   height: 26px;
   width: 256px;
@@ -75,12 +83,11 @@
   height: 27px;
   width: 262px;
   font-size: 0.925rem;
-  font-family: 'Jura', sans-serif;
+  font-family: $secondary-font;
   font-weight: 700;
 }
 
 .brandList {
-  height: 98px;
   width: 260px;
   position: absolute;
   top: 33px;
@@ -106,7 +113,7 @@
   padding-left: 6px;
   margin-top: 4px;
   font-size: 0.925rem;
-  font-family: 'Jura', sans-serif;
+  font-family: $secondary-font;
   font-weight: 600;
   width: 252px;
 }
@@ -121,7 +128,7 @@
   display: flex;
   align-items: center;
   font-size: 0.925rem;
-  font-family: 'Jura', sans-serif;
+  font-family: $secondary-font;
   font-weight: 600;
   list-style-type: none;
   position: relative;
@@ -136,27 +143,27 @@
 .modelList li p {
   text-transform: capitalize;
   margin: 0;
-  color: #1b1717;
+  color: $fourth-color;
 }
 
 .brandList li:hover,
 .modelList li:hover,
 .form button:hover {
-  background-color: #eeebdd;
+  background-color: $primary-color-alt;
   cursor: pointer;
 }
 
 .noBikeModelErrorText {
   font-size: 1.2rem;
-  font-family: 'Cairo', sans-serif;
+  font-family: $primary-font;
   font-weight: 700;
   margin-top: 24px;
-  color: #ce1212;
+  color: $secondary-color;
 }
 
 .noBrandErrorText {
   font-size: 1rem;
-  font-family: 'Jura', sans-serif;
+  font-family: $secondary-font;
   font-weight: 600;
   text-align: center;
   margin-top: 6px;
@@ -176,7 +183,7 @@
   width: 122px;
   border: 0.4px solid black;
   font-size: 1rem;
-  font-family: 'Jura', sans-serif;
+  font-family: $secondary-font;
   font-weight: 700;
   letter-spacing: 0.2px;
   text-transform: uppercase;
@@ -189,7 +196,7 @@
 }
 
 #selectBtn {
-  background-color: #ce1212;
+  background-color: $secondary-color;
   color: white;
   border: 0;
 }

@@ -11,18 +11,27 @@ $secondary-font: 'Jura', sans-serif;
   margin: 2.4rem 0 1rem 0;
 }
 
-h1 {
+.header-container h1 {
   font-size: 2.5rem;
   font-family: $primary-font;
   line-height: 1.1;
   text-align: center;
   text-transform: uppercase;
+  margin: 0;
+}
+
+.header-container p {
+  font-size: 1.1rem;
+  font-family: $primary-font;
+  line-height: 1.1;
+  text-align: center;
+  margin: 5px 0 3rem 0;
 }
 
 .comparison-container {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.4rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
 }
 
 .bike-container {
@@ -56,6 +65,10 @@ h1 {
 }
 
 @media only screen and (max-width: 550px) {
+  .header-container p {
+    margin: 5px 4.5rem 3rem 4.5rem;
+  }
+
   .bike-container {
     height: 9.6rem; /* 153.6px */
     width: 9.4rem; /* 150.4px */
@@ -63,6 +76,10 @@ h1 {
 }
 
 @media only screen and (max-width: 420px) {
+  .header-container p {
+    margin: 5px 3rem 3rem 3rem;
+  }
+
   .bike-container {
     height: 9rem; /* 153.6px */
     width: 8.5rem; /* 150.4px */

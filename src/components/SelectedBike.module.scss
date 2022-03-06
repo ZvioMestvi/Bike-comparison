@@ -1,3 +1,7 @@
+$primary-color: #f4f3ef;
+$secondary-color: #ce1212;
+$secondary-font: 'Jura', sans-serif;
+
 .mainContainer {
   margin: 0 1rem;
 }
@@ -24,13 +28,13 @@
 .imagesContainer div::before {
   content: '';
   display: block;
-  width: 0;
-  height: 0;
   border: 24px solid transparent;
-  border-top-color: #ce1212;
-  border-right-color: #ce1212;
+  border-top-color: $secondary-color;
+  border-right-color: $secondary-color;
   position: absolute;
   right: 0;
+  width: 0;
+  height: 0;
 }
 
 .imagesContainer img {
@@ -43,9 +47,9 @@
   display: flex;
   align-items: center;
   font-size: 1.1rem;
-  font-family: 'Jura', sans-serif;
+  font-family: $secondary-font;
   font-weight: 700;
-  background-color: #ce1212;
+  background-color: $secondary-color;
   height: 36px;
   margin: 0;
   padding-left: 5px;
@@ -56,9 +60,9 @@
   display: flex;
   align-items: center;
   font-size: 1.05rem;
-  font-family: 'Jura', sans-serif;
+  font-family: $secondary-font;
   font-weight: 700;
-  background-color: #f4f3ef;
+  background-color: $primary-color;
   height: 36px;
   margin: 1px 0 0 0;
   padding-left: 5px;
